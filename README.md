@@ -1,17 +1,17 @@
-# @useresume
+# useresume/sdk
 
 Official TypeScript SDK for the [useResume API](https://useresume.ai/resume-generation-api) — programmatically generate professional resumes and cover letters.
 
 ## Installation
 
 ```bash
-npm install @useresume
+npm install useresume/sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { useResume } from "@useresume";
+import { useResume } from "useresume/sdk";
 
 const client = new useResume("your-api-key");
 
@@ -172,7 +172,7 @@ All create methods return:
 ## Error Handling
 
 ```typescript
-import { useResume, UseResumeError } from "@useresume";
+import { useResume, UseResumeError } from "useresume/sdk";
 
 try {
   const result = await client.createResume(params);
@@ -209,7 +209,7 @@ import {
   ApiParseCoverLetterJsonResponse,
   ApiParseCoverLetterMarkdownResponse,
   ApiGetRunStatusResponseStructure,
-} from "@useresume";
+} from "useresume/sdk";
 ```
 
 ## Templates & Styling

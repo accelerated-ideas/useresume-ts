@@ -1,5 +1,5 @@
 {
-  "name": "@useresume",
+  "name": "useresume/sdk",
   "files": [
     "dist",
     "README.md"
