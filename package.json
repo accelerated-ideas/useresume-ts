@@ -1,0 +1,46 @@
+{
+  "name": "@useresume",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "version": "1.0.0",
+  "description": "useResume TypeScript SDK",
+  "main": "./dist/client.cjs",
+  "module": "./dist/client.mjs",
+  "types": "./dist/client.d.mts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/client.d.mts",
+        "default": "./dist/client.mjs"
+      },
+      "require": {
+        "types": "./dist/client.d.cts",
+        "default": "./dist/client.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "test:drift": "tsc -p src/scripts/tsconfig.drift.json",
+    "prebuild": "npm run test:drift",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "useresume",
+    "sdk",
+    "typescript"
+  ],
+  "author": "accelerated-ideas",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "tsdown": "^0.19.0-beta.5",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}
