@@ -21,6 +21,14 @@
       }
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accelerated-ideas/useresume-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/accelerated-ideas/useresume-ts/issues"
+  },
+  "homepage": "https://github.com/accelerated-ideas/useresume-ts#readme",
   "scripts": {
     "test:drift": "tsc -p src/scripts/tsconfig.drift.json",
     "prebuild": "npm run test:drift",

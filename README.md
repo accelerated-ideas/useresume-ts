@@ -162,9 +162,9 @@ All create methods return:
     file_size_bytes: number;
   }
   meta: {
-    run_id: string | null;
+    run_id: string;
     credits_used: number;
-    credits_remaining: number | null;
+    credits_remaining: number;
   }
 }
 ```
