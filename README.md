@@ -216,7 +216,7 @@ import {
 
 Preview all available templates by creating example documents in the [useResume dashboard](https://useresume.ai/account/resumes).
 
-**Resume Templates:** `default`, `clean`, `classic`, `executive`, `modern-pro`, `meridian`, `horizon`, `atlas`, `prism`, `nova`, `zenith`, `vantage`, `summit`, `quantum`, `vertex`, `harvard`, `lattice`
+**Resume Templates:** `default`, `clean`, `classic`, `executive`, `modern-pro`, `meridian`, `horizon`, `atlas`, `prism`, `nova`, `zenith`, `vantage`, `summit`, `quantum`, `vertex`, `harvard`, `lattice`, `strata`, `cascade`, `pulse`, `folio`, `ridge`, `verso`, `ledger`, `tableau`, `apex`, `herald`, `beacon`, `onyx`
 
 **Cover Letter Templates:** `atlas`, `classic`, `clean`, `default`, `executive`, `horizon`, `meridian`, `modern-pro`, `nova`, `prism`, `zenith`
 

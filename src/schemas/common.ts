@@ -15,7 +15,7 @@ export const schemaProfilePictureRadius = z
   .describe("Profile picture radius");
 
 export const schemaDateFormat = z
-  .enum(["LLL yyyy", "LL/yyyy", "dd/LL/yyyy", "LL/dd/yyyy", "dd.LL.yyyy"], {
+  .enum(["LLL yyyy", "LL/yyyy", "dd/LL/yyyy", "LL/dd/yyyy", "dd.LL.yyyy", "yyyy"], {
     message: "Please select a valid date format",
   })
   .optional()
@@ -69,10 +69,22 @@ export const schemaTemplateResume = z
       "vertex",
       "harvard",
       "lattice",
+      "strata",
+      "cascade",
+      "pulse",
+      "folio",
+      "ridge",
+      "verso",
+      "ledger",
+      "tableau",
+      "apex",
+      "herald",
+      "beacon",
+      "onyx",
     ],
     {
       message:
-        "Please select a valid template. (e.g. 'default', 'clean', 'classic', 'executive', 'modern-pro', 'meridian', 'horizon', 'atlas', 'prism', 'nova', 'zenith', 'vantage', 'summit', 'quantum', 'vertex', 'harvard', 'lattice')",
+        "Please select a valid template. (e.g. 'default', 'clean', 'classic', 'executive', 'modern-pro', 'meridian', 'horizon', 'atlas', 'prism', 'nova', 'zenith', 'vantage', 'summit', 'quantum', 'vertex', 'harvard', 'lattice', 'strata', 'cascade', 'pulse', 'folio', 'ridge', 'verso', 'ledger', 'tableau', 'apex', 'herald', 'beacon', 'onyx')",
     }
   )
   .optional()
