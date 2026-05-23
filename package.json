@@ -4,7 +4,7 @@
     "dist",
     "README.md"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "useResume TypeScript SDK",
   "main": "./dist/client.cjs",
   "module": "./dist/client.mjs",

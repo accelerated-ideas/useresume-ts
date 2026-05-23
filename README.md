@@ -139,14 +139,16 @@ const result = await client.parseCoverLetter({
 
 ### Run Status
 
-#### `getRun(params)`
+#### `getRunStatus(params)`
 
 Check the status of an async operation.
 
 ```typescript
-const status = await client.getRun({ run_id: "run_abc123" });
+const status = await client.getRunStatus({ run_id: "run_abc123" });
 console.log(status.data.status); // "success" | "error" | "in_progress"
 ```
+
+Legacy alias: `client.getRun(params)` is still supported for backwards compatibility.
 
 ## Response Types
 

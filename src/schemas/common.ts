@@ -29,22 +29,13 @@ export const schemaLanguageSelector = z
   .describe("Document language");
 
 export const schemaResumeSectionId = z
-  .union([
-    z.enum([
-      "summary",
-      "employment",
-      "skills",
-      "education",
-      "certifications",
-      "languages",
-      "references",
-      "projects",
-      "activities",
-    ]),
-    z.string().max(250, {
-      message: "Section ID cannot exceed 250 characters",
-    }),
-  ])
+  .string({
+    required_error: "Section ID is required",
+    invalid_type_error: "Section ID must be a string",
+  })
+  .max(500, {
+    message: "Section ID cannot exceed 500 characters",
+  })
   .describe(
     "Unique identifier for the resume section. Can be one of the predefined sections or a custom section ID"
   );

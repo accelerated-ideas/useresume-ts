@@ -21,8 +21,8 @@ export const schemaApiGetRunStatusResponseStructure = z.object({
     status: schemaRunStatus,
     file_url: z.string().nullable().optional(),
     file_url_expires_at: z.number().nullable().optional(),
-    file_expires_at: z.number(),
-    file_size_bytes: z.number(),
+    file_expires_at: z.number().nullable(),
+    file_size_bytes: z.number().nullable(),
   }),
 });
 

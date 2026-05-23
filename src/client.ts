@@ -66,6 +66,71 @@ export class UseResumeError extends Error {
   }
 }
 
+type ApiErrorBody = {
+  error?: unknown;
+  message?: unknown;
+  details?: unknown;
+  field_errors?: unknown;
+  code?: unknown;
+};
+
+function formatApiFieldErrors(fieldErrors: unknown): string | null {
+  if (!Array.isArray(fieldErrors)) {
+    return null;
+  }
+
+  const formatted = fieldErrors
+    .map((fieldError) => {
+      if (!fieldError || typeof fieldError !== "object") {
+        return null;
+      }
+
+      const { path, message } = fieldError as {
+        path?: unknown;
+        message?: unknown;
+      };
+
+      if (typeof message !== "string") {
+        return null;
+      }
+
+      const pathText = Array.isArray(path)
+        ? path.map((segment) => String(segment)).join(".")
+        : typeof path === "string"
+          ? path
+          : "";
+
+      return pathText ? `${pathText}: ${message}` : message;
+    })
+    .filter((value): value is string => Boolean(value));
+
+  return formatted.length > 0 ? formatted.join("; ") : null;
+}
+
+function extractApiErrorMessage(errorBody: unknown, fallback: string): string {
+  if (!errorBody || typeof errorBody !== "object") {
+    return fallback;
+  }
+
+  const body = errorBody as ApiErrorBody;
+  const primaryMessage =
+    typeof body.message === "string"
+      ? body.message
+      : typeof body.error === "string"
+        ? body.error
+        : fallback;
+
+  const extraParts = [
+    typeof body.details === "string" ? body.details : null,
+    formatApiFieldErrors(body.field_errors),
+    typeof body.code === "string" ? `code: ${body.code}` : null,
+  ].filter((value): value is string => Boolean(value));
+
+  return extraParts.length > 0
+    ? `${primaryMessage} (${extraParts.join(" | ")})`
+    : primaryMessage;
+}
+
 export class useResume {
   private apiKey: string;
   private baseUrl: string;
@@ -100,11 +165,11 @@ export class useResume {
     });
 
     if (!response.ok) {
-      // Try to parse the error message from the API, fallback to status text
       let errorMessage = response.statusText;
+
       try {
         const errorBody = await response.json();
-        errorMessage = errorBody.message || errorBody.error || errorMessage;
+        errorMessage = extractApiErrorMessage(errorBody, errorMessage);
       } catch {
         // If JSON parsing fails, just use the status text
       }
@@ -295,16 +360,15 @@ export class useResume {
   }
 
   /**
-   * Get the status and result of an async run.
-   * Validates the payload locally using Zod before sending to the API.
+   * Get the status of a previously initiated async run by its run_id.
    * @param params - The run ID to check
-   * @returns The run status and result data
+   * @returns The current status and file info if ready
    */
-  public async getRun(
+  public async getRunStatus(
     params: ApiRunStatus
   ): Promise<ApiGetRunStatusResponseStructure> {
+    // For GET requests, we only need to validate the params object
     const validation = schemaApiRunStatus.safeParse(params);
-
     if (!validation.success) {
       const fieldErrors = validation.error.errors
         .map((e) => `[${e.path.join(".")}] ${e.message}`)
@@ -314,7 +378,22 @@ export class useResume {
 
     return this.request<ApiGetRunStatusResponseStructure>(
       `/run/get/${validation.data.run_id}`,
-      { method: "GET" }
+      {
+        method: "GET",
+        headers: {
+          // GET requests typically don't need a Content-Type header, but it's harmless
+        },
+      }
     );
+  }
+
+  /**
+   * Legacy alias for backwards compatibility.
+   * @deprecated Use getRunStatus instead.
+   */
+  public async getRun(
+    params: ApiRunStatus
+  ): Promise<ApiGetRunStatusResponseStructure> {
+    return this.getRunStatus(params);
   }
 }
